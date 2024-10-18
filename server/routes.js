@@ -9,11 +9,12 @@ const {
     loginGetController,
     loginPostController,
     registerGetController,
-    registerPostController
+    registerPostController,
+    authMiddleware
 } = require('./controllers');
 
 // Home route
-router.get('/', homeController);
+router.get('/', authMiddleware, homeController);
 
 // Login routes
 router.get('/login', loginGetController);

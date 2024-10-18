@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
+    enrollmentNo: {
+        type: Number,
         required: true,
         unique: true,
         trim: true
@@ -40,18 +41,9 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid phone number!`
         }
     },
-    phoneVerified: {
-        type: Boolean,
-        default: false
-    },
-    phoneVerificationCode: String,
-    phoneVerificationExpires: Date,
     address: {
-        street: String,
-        city: String,
-        state: String,
-        zipCode: String,
-        country: String
+        type: String,
+        required: true
     },
     role: {
         type: String,
@@ -68,7 +60,7 @@ const userSchema = new mongoose.Schema({
     },
     lendingScore: {
         type: Number,
-        default: 0
+        default: 500
     },
     itemsLent: [{
         type: mongoose.Schema.Types.ObjectId,
