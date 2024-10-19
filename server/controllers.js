@@ -276,6 +276,27 @@ const resetPassword = async (req, res) => {
     }
 };
 
+const about = async (req, res) => {
+    res.render("about")
+}
+
+const forgotPasswordGetController = async (req, res) => {
+    res.render("forgot-password")
+}
+
+const feedback = async (req, res) => {
+    res.render("feedback")
+}
+
+//profile
+const profile = async (req, res) => {
+    const user = await User.findById(req.user.id)
+    const { fullName, email, phoneNumber, address, department, role } = user
+    res.render("profile", {
+        fullName, email, phoneNumber, address, department, role
+    })
+}
+
 // Export all controllers and middleware
 module.exports = {
     homeController,
@@ -288,5 +309,9 @@ module.exports = {
     verifyEmail,
     forgotPassword,
     resetPassword,
-    logout
+    logout,
+    about,
+    forgotPasswordGetController,
+    feedback,
+    profile
 };

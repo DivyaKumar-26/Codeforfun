@@ -14,7 +14,11 @@ const {
     authMiddlewareOpp,
     forgotPassword,
     resetPassword,
-    logout
+    logout,
+    about,
+    forgotPasswordGetController,
+    feedback,
+    profile
 } = require('./controllers');
 const { verifyEmail } = require('./controllers');
 
@@ -33,6 +37,7 @@ router.get('/register', authMiddlewareOpp, registerGetController);
 router.post('/register', registerPostController);
 
 // Password reset and forgot routes
+router.get('/forgot-password', authMiddlewareOpp, forgotPasswordGetController);
 router.post('/forgot-password', forgotPassword);
 router.patch('/reset-password/:token', resetPassword);
 
@@ -40,5 +45,14 @@ router.patch('/reset-password/:token', resetPassword);
 router.get('/verify-email/:token', verifyEmail);
 // resend verfication email 
 // router.post('/resend-verification-email', authMiddlewareOpp, resendVerificationEmail);
+
+//about
+router.get("/about", about)
+
+//feedback
+router.get('/feedback', authMiddleware, feedback)
+
+//profile
+router.get('/profile', authMiddleware, profile)
 
 module.exports = router;
