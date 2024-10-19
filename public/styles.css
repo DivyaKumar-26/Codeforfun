@@ -1,0 +1,13 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    background-color: #b673db;
+}
+form {
+    
+    background-color: rgba(225, 209, 209, 0.7); /* Black with 50% opacity */
+    border: 2px solid rgba(169, 133, 133, 0.7); /* White border */
+    border-radius:8px;  }
