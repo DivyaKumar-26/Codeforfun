@@ -18,7 +18,12 @@ const {
     about,
     forgotPasswordGetController,
     feedback,
-    profile
+    profile,
+    borrowRequestGet,
+    borrowRequestPost,
+    lenderAcceptsRequest,
+    borrowerReturnsItem,
+    borrowerConfirmsItem
 } = require('./controllers');
 const { verifyEmail } = require('./controllers');
 
@@ -54,5 +59,18 @@ router.get('/feedback', authMiddleware, feedback)
 
 //profile
 router.get('/profile', authMiddleware, profile)
+
+//borrow request
+router.get("request-item", authMiddleware, borrowRequestGet)
+router.post("request-item", authMiddleware, borrowRequestPost)
+
+// lender accepts a request
+router.post("lend-item", authMiddleware, lenderAcceptsRequest)
+
+//borrower confirm that they received the lended item
+router.post("item-received", authMiddleware, borrowerConfirmsItem)
+
+//borrower returns item
+router.post("item-received", authMiddleware, borrowerReturnsItem)
 
 module.exports = router;

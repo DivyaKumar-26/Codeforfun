@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const crypto = require('crypto');
+const { Item } = require('./models/User')
 
 function homeController(req, res) {
     res.render("home");
@@ -297,6 +298,95 @@ const profile = async (req, res) => {
     })
 }
 
+//request to borrow something
+const borrowRequestGet = async (req, res) => {
+    res.render("borrow")
+}
+const borrowRequestPost = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id)
+        const { lendingScore } = user
+
+        if (lendingScore < 25) {
+            return res.render("confirm", { msg: "Your lending score is too low. Increase your score by lending items to be enable to borrow.", redirect: "/" })
+        }
+
+        const { item } = req.body
+
+        const reqItem = new Item({
+            item,
+            borrowedBy: req.user.id
+        })
+
+        await reqItem.save()
+        res.render("confirm", { msg: "Request sent successfully. Please wait for some lender.", redirect: "/" })
+    } catch (error) {
+        res.render('confirm', { msg: "Server error. Please try again.", redirect: "/" })
+    }
+}
+
+//lender accepts a request
+const lenderAcceptsRequest = async (req, res) => {
+    // const user = await User.findById(req.user.id)
+    // const { itemRequested } = req.body
+    // user.itemsBorrowed.push({ item: itemRequested, status: "accepted" })
+    // await user.save()
+    const { itemId } = req.body
+
+    const item = await Item.findById(itemId)
+    if (item.status !== "requested") {
+        return res.render("confirm", { msg: "No such request exists.", redirect: "/" })
+    }
+    item.status = "accepted"
+    item.lentBy = req.user.id
+    await item.save()
+}
+
+//borrower confirms that they received the lended item
+const borrowerConfirmsItem = async (req, res) => {
+    const { itemId } = req.body
+    const item = await Item.findById(itemId)
+    if (item.status !== "accepted") {
+        return res.render("confirm", { msg: "No such accepted request exists.", redirect: "/" })
+    }
+
+    item.borrowDate = Date.now()
+    item.status = "borrowed"
+    await item.save()
+    return res.render("confirm", { msg: "Item borrowed successfully. Happy borrowing.", redirect: "/" })
+}
+
+// when borrower returns lender rates and change status to returned
+const borrowerReturnsItem = async (req, res) => {
+    const { itemId, feedback, rating } = req.body
+
+    const item = await Item.findById(itemId)
+    if (item.lentBy !== req.user.id) {
+        return res.render("confirm", { msg: "You are not the lender. You can't do this.", redirect: "/" })
+    }
+    if (item.status !== "borrowed") {
+        return res.render("confirm", { msg: "No such borrowed item exists.", redirect: "/" })
+    }
+    item.returnDate = Date.now()
+    item.status = "returned"
+    item.lenderFeedback = feedback || null
+    item.lenderRating = rating || 5
+    await item.save()
+
+    const secondsBorrowed = item.returnDate - item.borrowDate
+    const pointsChange = Number(process.env.POINTS_CHANGE) * secondsBorrowed
+
+    const borrower = await User.findById(item.borrowedBy)
+    const lender = await User.findById(item.lentBy)
+
+    borrower.lendingScore -= pointsChange
+    lender.lendingScore += pointsChange
+    await borrower.save()
+    await lender.save()
+
+    res.render("confirm", { msg: "Your feedback and rating has been saved. Happy lending.", redirect: "/" })
+}
+
 // Export all controllers and middleware
 module.exports = {
     homeController,
@@ -313,5 +403,10 @@ module.exports = {
     about,
     forgotPasswordGetController,
     feedback,
-    profile
+    profile,
+    borrowRequestGet,
+    borrowRequestPost,
+    borrowerReturnsItem,
+    lenderAcceptsRequest,
+    borrowerConfirmsItem
 };

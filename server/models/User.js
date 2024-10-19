@@ -48,11 +48,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String,
-        enum: ['student', 'faculty', 'staff'],
-        default: 'student'
-    },
     joinedDate: {
         type: Date,
         default: Date.now
@@ -83,13 +78,49 @@ const userSchema = new mongoose.Schema({
         },
         status: {
             type: String,
-            enum: ['borrowed', 'returned', 'overdue'],
+            enum: ['borrowed', 'returned'],
             default: 'borrowed'
+        },
+        lentBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
         }
     }]
 }, {
     timestamps: true
 });
+
+//schema for item requests
+const itemSchema = new mongoose.Schema({
+    item: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Item'
+    },
+    borrowDate: {
+        type: Date
+    },
+    returnDate: Date,
+    lenderFeedback: String,
+    lenderRating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        default: 5
+    },
+    status: {
+        type: String,
+        enum: ['requested', 'accepted', 'borrowed', 'returned'],
+        default: 'requested'
+    },
+    borrowedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    lentBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
+})
 
 // Add any pre-save hooks, methods, or statics here if needed
 
@@ -214,5 +245,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 const User = mongoose.model('User', userSchema);
+const Item = mongoose.model('Item', itemSchema);
 
 module.exports = User;
+module.exports.Item = Item
