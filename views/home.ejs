@@ -8,108 +8,164 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Open+Sans:wght@400;600&display=swap');
+
+        :root {
+            --primary-dark: #29231d;
+            --primary-light: #fefbf6;
+            --accent-color: #a18a68;
+            --text-color: #4a4039;
+        }
+
         body {
-            background-color: #f0f0f0;
-            /* Light background for contrast */
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            color: #ffffff;
-            /* White text */
-        }
-
-        .navbar-nav .nav-link {
-            color: #ffffff;
-            /* White text */
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #007bff;
-            /* Primary color on hover */
-        }
-
-        .content-wrapper {
-            background-color: rgb(255, 255, 255);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 30px auto;
-            /* Center the content */
-            max-width: 800px;
-            /* Limit the width */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: var(--primary-light);
+            color: var(--text-color);
+            font-family: 'Open Sans', sans-serif;
         }
 
         .navbar {
-            background-color: #343a40;
-            /* Dark background */
+            background-color: var(--primary-dark);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-family: 'Lora', serif;
+            font-weight: 600;
+            color: var(--primary-light) !important;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--primary-light) !important;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .content-wrapper {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(41, 35, 29, 0.1);
         }
 
         .item-card {
-            background-color: #ffffff;
+            background-color: var(--primary-light);
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(41, 35, 29, 0.08);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--accent-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-card h4 {
+            color: var(--primary-dark);
+            font-weight: 600;
+            font-family: 'Lora', serif;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-family: 'Lora', serif;
+            font-weight: 600;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Custom spacing for profile button */
+        .profile-button {
+            margin-left: 20px;
         }
 
         .footer {
+            text-align: center;
+            color: var(--primary-light);
+            padding: 1rem 0;
+            background-color: var(--primary-dark);
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-            background-color: #343a40;
-            margin-top: 3rem;
-            padding: 10px;
-            text-align: center;
-            color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Lendo</a>
+            <a href="/">
+                <img src="logo2.png" alt="Lendo Logo" height = 50 >
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto"> <!-- Change here -->
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Services dropdown">
                             Services
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="re/">Request</a></li>
-                            <li><a class="dropdown-item" href="r/">Return</a></li>
+                            <li><a class="dropdown-item" href="/request">Request</a></li>
+                            <li><a class="dropdown-item" href="/return">Return</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="feedback/">Feedback</a>
+                        <a class="nav-link" href="/feedback">Feedback</a>
                     </li>
-                    <li class="nav-item dropdown">
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown profile-button">
                         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle"></i>
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="profile/">Profile</a></li>
-                            <li><a class="dropdown-item" href="settings/">Settings</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="logout/">Logout</a></li>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/login">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -118,32 +174,42 @@
     </nav>
 
     <div class="content-wrapper">
-        <h2 class="text-center mb-4">Featured Items</h2>
-        <div class="featured-items">
-            <div class="item-card">
-                <h4>Power Drill</h4>
-                <p>Available for 3-day lending</p>
-                <p>Location: Main Warehouse</p>
+        <h2>Featured Items</h2>
+        <div class="featured-items row">
+            <div class="col-md-4 mb-4">
+                <div class="item-card">
+                    <i class="fas fa-ruler icon"></i>
+                    <h4>Comb</h4>
+                    <p>Available for 3-day lending</p>
+                    <p>Location: RKB</p>
+                </div>
             </div>
-            <div class="item-card">
-                <h4>Laser Level</h4>
-                <p>Available for 1-week lending</p>
-                <p>Location: Tool Shed</p>
+            <div class="col-md-4 mb-4">
+                <div class="item-card">
+                    <i class="fas fa-tshirt icon"></i>
+                    <h4>Yellow Kurta</h4>
+                    <p>Available for 1-week lending</p>
+                    <p>Location: Govind Bhawan</p>
+                </div>
             </div>
-            <div class="item-card">
-                <h4>Hand Saw</h4>
-                <p>Available for 5-day lending</p>
-                <p>Location: Hardware Section</p>
+            <div class="col-md-4 mb-4">
+                <div class="item-card">
+                    <i class="fas fa-cut icon"></i>
+                    <h4>Scissor</h4>
+                    <p>Available for 5-day lending</p>
+                    <p>Location: Rajendra Bhawan</p>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Lendo. All rights reserved.</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <div class="footer">
-        <p>&copy; 2024 Lendo. All rights reserved.</p>
-    </div>
 </body>
 
 </html>
