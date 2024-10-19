@@ -3,12 +3,14 @@ require('dotenv').config();
 const express = require("express");
 const path = require('path');
 
+const cookieParser = require('cookie-parser');
+
 const connectDB = require('./connDB');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // Import routes
-const routes = require('./routes');
+const routes = require('./routes.js');
 
 // Connect to MongoDB
 connectDB();
@@ -20,6 +22,7 @@ app.set('views', path.join(__dirname, '../views'));
 // Serve static files
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.use(cookieParser());
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
