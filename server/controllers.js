@@ -2,10 +2,24 @@
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const crypto = require('crypto');
-const { Item } = require('./models/User')
+const { Item } = require('./models/User');
+const { log } = require('console');
 
-function homeController(req, res) {
-    res.render("home");
+async function homeController(req, res) {
+    const requestedItems = await Item.find({ status: "requested" })
+    log(requestedItems)
+    const items = []
+    requestedItems.map(async (item, key) => {
+        const borrowedBydetails = await User.findById(item.borrowedBy)
+        items[key] = {
+            id: item._id,
+            item: item.item,
+            borrowedBy: borrowedBydetails
+        }
+    })
+
+    log(items)
+    res.render("home", { items });
 }
 
 function loginGetController(req, res) {
@@ -26,7 +40,7 @@ async function loginPostController(req, res) {
             return res.render("confirm", { msg: "Invalid Credentials", redirect: "/login" });
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
         res.cookie("access_token", token, {
             httpOnly: true,
@@ -44,7 +58,7 @@ function registerGetController(req, res) {
 }
 
 async function registerPostController(req, res) {
-    const { enrollmentNo, email, password, fullName, phoneNumber, address, department, role } = req.body;
+    const { enrollmentNo, email, password, fullName, phoneNumber, address } = req.body;
 
     try {
         const emailExistsVerified = await User.findOne({ email, emailVerified: true })
@@ -121,7 +135,7 @@ const verifyEmail = async (req, res) => {
 
         await user.save();
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
         // res.render("confirm", { msg: "Email verified successfully. Now login.", redirect: "/login" });
         res.cookie("access_token", token, {
@@ -178,8 +192,8 @@ function authMiddleware(req, res, next) {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded.id;
-        console.log(decoded)
+        req.user = decoded;
+        console.log("decoded", decoded)
         next();
     } catch (error) {
         res.redirect("/login")
@@ -291,20 +305,22 @@ const feedback = async (req, res) => {
 
 //profile
 const profile = async (req, res) => {
-    const user = await User.findById(req.user.id)
-    const { fullName, email, phoneNumber, address, department, role } = user
+    console.log(req.user)
+    const user = await User.findOne({ email: req.user.email })
+    const { fullName, email, phoneNumber, address, lendingScore } = user
     res.render("profile", {
-        fullName, email, phoneNumber, address, department, role
+        fullName, email, phoneNumber, address, lendingScore
     })
 }
 
-//request to borrow something
-const borrowRequestGet = async (req, res) => {
-    res.render("borrow")
+const request = async (req, res) => {
+    res.render("request")
 }
+
+//request to borrow something
 const borrowRequestPost = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id)
+        const user = await User.findOne({ email: req.user.email, emailVerified: true })
         const { lendingScore } = user
 
         if (lendingScore < 25) {
@@ -321,7 +337,9 @@ const borrowRequestPost = async (req, res) => {
         await reqItem.save()
         res.render("confirm", { msg: "Request sent successfully. Please wait for some lender.", redirect: "/" })
     } catch (error) {
-        res.render('confirm', { msg: "Server error. Please try again.", redirect: "/" })
+        console.log(error);
+
+        res.render('confirm', { msg: "Server error. Please try again.", redirect: "/request" })
     }
 }
 
@@ -337,9 +355,11 @@ const lenderAcceptsRequest = async (req, res) => {
     if (item.status !== "requested") {
         return res.render("confirm", { msg: "No such request exists.", redirect: "/" })
     }
-    item.status = "accepted"
+    item.status = "borrowed"
     item.lentBy = req.user.id
+    item.borrowDate = Date.now()
     await item.save()
+
 }
 
 //borrower confirms that they received the lended item
@@ -350,10 +370,11 @@ const borrowerConfirmsItem = async (req, res) => {
         return res.render("confirm", { msg: "No such accepted request exists.", redirect: "/" })
     }
 
+    item.lentBy = req.user.id
     item.borrowDate = Date.now()
     item.status = "borrowed"
     await item.save()
-    return res.render("confirm", { msg: "Item borrowed successfully. Happy borrowing.", redirect: "/" })
+    return res.render("confirm", { msg: "Item borrowed successfully.", redirect: "/" })
 }
 
 // when borrower returns lender rates and change status to returned
@@ -387,6 +408,10 @@ const borrowerReturnsItem = async (req, res) => {
     res.render("confirm", { msg: "Your feedback and rating has been saved. Happy lending.", redirect: "/" })
 }
 
+const returnController = async (req, res) => {
+    res.render("return")
+}
+
 // Export all controllers and middleware
 module.exports = {
     homeController,
@@ -404,9 +429,10 @@ module.exports = {
     forgotPasswordGetController,
     feedback,
     profile,
-    borrowRequestGet,
     borrowRequestPost,
     borrowerReturnsItem,
     lenderAcceptsRequest,
-    borrowerConfirmsItem
+    borrowerConfirmsItem,
+    request,
+    returnController
 };
