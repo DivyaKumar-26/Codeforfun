@@ -32,10 +32,10 @@
 
   <h2 id="usage">Usage</h2>
     <ol>
-        <li><strong>Sign Up / Log In:</strong> Create an account or log in to your existing account.</li>
-        <li><strong>Lend Resources:</strong> List your available resources and start earning points!</li>
-        <li><strong>Borrow Resources:</strong> Browse available items and make requests to borrow.</li>
-        <li><strong>Manage Transactions:</strong> Keep track of borrowed items, schedule returns, and leave reviews.</li>
+    
+<li><strong>Lend Resources:</strong> List your available resources and start earning points!</li>
+<li><strong>Borrow Resources:</strong> Browse available items and make requests to borrow.</li>
+<li><strong>Manage Transactions:</strong> Keep track of borrowed items, schedule returns, and leave reviews.</li>
     </ol>
 
   
