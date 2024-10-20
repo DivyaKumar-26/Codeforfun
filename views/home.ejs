@@ -113,15 +113,15 @@
         }
 
         .footer {
-            text-align: center;
-            color: var(--primary-light);
-            padding: 1rem 0;
-            background-color: var(--primary-dark);
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #343a40;
+            margin-top: 2rem 0;
+            padding: 7px;
+            text-align: center;
+            color: white;
         }
     </style>
 </head>
@@ -130,7 +130,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a href="/">
-                <img src="logo2.png" alt="Lendo Logo" height = 50 >
+                <img src="logo2.png" alt="Lendo Logo" height=50>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,7 +142,8 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Services dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" aria-label="Services dropdown">
                             Services
                         </a>
                         <ul class="dropdown-menu">
@@ -165,7 +166,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                             <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                            <li><a class="dropdown-item" href="/login">Logout</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -174,31 +175,29 @@
     </nav>
 
     <div class="content-wrapper">
-        <h2>Featured Items</h2>
+        <h2>Requested Items</h2>
         <div class="featured-items row">
             <div class="col-md-4 mb-4">
-                <div class="item-card">
-                    <i class="fas fa-ruler icon"></i>
-                    <h4>Comb</h4>
-                    <p>Available for 3-day lending</p>
-                    <p>Location: RKB</p>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="item-card">
-                    <i class="fas fa-tshirt icon"></i>
-                    <h4>Yellow Kurta</h4>
-                    <p>Available for 1-week lending</p>
-                    <p>Location: Govind Bhawan</p>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="item-card">
-                    <i class="fas fa-cut icon"></i>
-                    <h4>Scissor</h4>
-                    <p>Available for 5-day lending</p>
-                    <p>Location: Rajendra Bhawan</p>
-                </div>
+                <%= items %>
+                    <% items.forEach((item)=> { %>
+                        <div class="item-card">
+                            <h4>
+                                <%= item.item %>
+                            </h4>
+                            <h6>
+                                <%= item.borrwedBy.fullName %>
+                            </h6>
+                            <h6>
+                                <%= item.borrwedBy.email %>
+                            </h6>
+                            <h6>
+                                <%= item.borrwedBy.phoneNumber %>
+                            </h6>
+                            <h6>
+                                <%= item.borrwedBy.address %>
+                            </h6>
+                        </div>
+                        <% }) %>
             </div>
         </div>
     </div>

@@ -12,6 +12,7 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Open+Sans:wght@400;600&display=swap');
+
         :root {
             --primary-dark: #29231d;
             --primary-light: #fefbf6;
@@ -27,7 +28,7 @@
 
         .navbar {
             background-color: var(--primary-dark);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-brand {
@@ -59,7 +60,8 @@
             box-shadow: 0 10px 30px rgba(41, 35, 29, 0.1);
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             color: var(--primary-dark);
             font-family: 'Lora', serif;
             font-weight: 600;
@@ -67,13 +69,18 @@
         }
 
         .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40;
+            margin-top: 2rem 0;
+            padding: 7px;
             text-align: center;
-            color: var(--primary-light);
-            margin: 0;
-            margin-top: 3rem;
-            padding: 1rem 0;
-            background-color: var(--primary-dark);
+            color: white;
         }
+
+        ;
     </style>
 </head>
 
@@ -81,7 +88,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a href="/">
-                <img src="logo2.png" alt="Lendo Logo" height = 50 >
+                <img src="logo2.png" alt="Lendo Logo" height=50>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +100,8 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Services dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" aria-label="Services dropdown">
                             Services
                         </a>
                         <ul class="dropdown-menu">
@@ -116,7 +124,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                             <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                            <li><a class="dropdown-item" href="/login">Logout</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -126,10 +134,15 @@
 
     <div class="content-wrapper">
         <h1>About Lendo</h1>
-        <p>Welcome to Lendo! We are dedicated to providing the best library management services to our community. Our mission is to ensure a seamless experience for users in accessing and managing library resources.</p>
+        <p>Welcome to Lendo! We are dedicated to providing the best library management services to our community. Our
+            mission is to ensure a seamless experience for users in accessing and managing library resources.</p>
         <h2>Our Philosophy</h2>
-        <p>Our project is based on the "sharing is caring" theory. Here, people in need can raise their requests for any item, and those who own such items can accept the requests to lend them free of cost. This way, people will be able to obtain urgently needed items within the campus.</p>
-        <p>This entire process does not involve money; instead, it operates on a point-based system. To be eligible to request an item, you need certain points, which you can earn by lending your items to others. In this way, your generous actions will not only help others but also become your reward.</p>
+        <p>Our project is based on the "sharing is caring" theory. Here, people in need can raise their requests for any
+            item, and those who own such items can accept the requests to lend them free of cost. This way, people will
+            be able to obtain urgently needed items within the campus.</p>
+        <p>This entire process does not involve money; instead, it operates on a point-based system. To be eligible to
+            request an item, you need certain points, which you can earn by lending your items to others. In this way,
+            your generous actions will not only help others but also become your reward.</p>
     </div>
 
     <div class="footer">

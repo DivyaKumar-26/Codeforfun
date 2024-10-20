@@ -113,19 +113,20 @@
         .dropdown-toggle {
             padding: 0.5rem 1rem;
             line-height: 1.5;
-            height: auto; /* Allow the button to expand vertically */
+            height: auto;
+            /* Allow the button to expand vertically */
         }
 
         .footer {
-            text-align: center;
-            color: var(--primary-light);
-            padding: 1rem 0;
-            background-color: var(--primary-dark);
             position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #343a40;
+            margin-top: 2rem 0;
+            padding: 7px;
+            text-align: center;
+            color: white;
         }
 
         .form-label {
@@ -154,7 +155,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a href="/">
-                <img src="logo2.png" alt="Lendo Logo" height = 50 >
+                <img src="logo2.png" alt="Lendo Logo" height=50>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -166,7 +167,8 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Services dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" aria-label="Services dropdown">
                             Services
                         </a>
                         <ul class="dropdown-menu">
@@ -189,7 +191,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                             <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                            <li><a class="dropdown-item" href="/login">Logout</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -202,7 +204,8 @@
         <form>
             <div class="mb-3">
                 <label for="problemDescription" class="form-label"></label>
-                <input type="datetime-local" class="form-control" id="exampleInputPassword1" placeholder="Scheduled time of return" name="password" required>
+                <input type="datetime-local" class="form-control" id="exampleInputPassword1"
+                    placeholder="Scheduled time of return" name="password" required>
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-primary">Submit Feedback</button>
@@ -219,4 +222,3 @@
 </body>
 
 </html>
- 

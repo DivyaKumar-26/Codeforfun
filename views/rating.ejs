@@ -12,27 +12,34 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         body {
-            background-color: #f0f0f0; /* Light background for contrast */
+            background-color: #f0f0f0;
+            /* Light background for contrast */
         }
 
         .navbar {
-            background-color: #343a40; /* Dark background */
+            background-color: #343a40;
+            /* Dark background */
         }
 
-        .navbar-brand, .navbar-nav .nav-link {
-            color: #ffffff; /* White text */
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            /* White text */
         }
 
         .navbar-nav .nav-link:hover {
-            color: #007bff; /* Primary color on hover */
+            color: #007bff;
+            /* Primary color on hover */
         }
 
         .content-wrapper {
             background-color: #ffffff;
             border-radius: 20px;
             padding: 40px;
-            margin: 30px auto; /* Center the content */
-            max-width: 800px; /* Limit the width */
+            margin: 30px auto;
+            /* Center the content */
+            max-width: 800px;
+            /* Limit the width */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -42,18 +49,18 @@
             bottom: 0;
             width: 100%;
             background-color: #343a40;
-            margin-top: 2rem;
+            margin-top: 2rem 0;
             padding: 7px;
             text-align: center;
             color: white;
         }
-        
+
         .rating {
             display: flex;
             flex-direction: row-reverse;
             justify-content: flex-end;
         }
-        
+
         .rating input {
             display: none;
         }
@@ -64,13 +71,15 @@
             color: #ddd;
         }
 
-        .rating input:checked ~ label {
-            color: #ffc107; /* Gold color for selected rating */
+        .rating input:checked~label {
+            color: #ffc107;
+            /* Gold color for selected rating */
         }
-        
+
         .rating label:hover,
-        .rating label:hover ~ label {
-            color: #ffc107; /* Gold color on hover */
+        .rating label:hover~label {
+            color: #ffc107;
+            /* Gold color on hover */
         }
     </style>
 </head>
@@ -80,7 +89,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a href="/">
-                <img src="logo2.png" alt="Lendo Logo" height = 50 >
+                <img src="logo2.png" alt="Lendo Logo" height=50>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +101,8 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Services dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" aria-label="Services dropdown">
                             Services
                         </a>
                         <ul class="dropdown-menu">
@@ -115,7 +125,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                             <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                            <li><a class="dropdown-item" href="/login">Logout</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -149,13 +159,13 @@
             <button type="submit" class="btn btn-primary">Submit Rating</button>
         </form>
 
-        
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    
+
     <script>
         const form = document.getElementById('ratingForm');
         const ratingsList = document.getElementById('ratingsList');
